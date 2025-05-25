@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://celionatti.github.io/blog-template/assets/css/admin-style.css">
+    <link rel="stylesheet" href="https://celionatti.github.io/blog-template/assets/css/public.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/public.css">
+      <link rel="stylesheet" href="assets/css/logo-style.css">
+    
+    <title>BisStack</title>
+    <style>
+        /* Fix for pagination jumping */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+        }
+        /* Ensure post cards don't slide */
+        .post-slider {
+            display: block !important;
+        }
+        .post-slider .post-card {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-overlay"></div>
+        <span role="button" class="menu-icon">
+            <ion-icon name="menu-outline"></ion-icon>
+        </span>
+        <a href="index.html" class="logo-center td-none">  
+  <div><span>BisStack</span></div>
+  <img src="assets/images/logo/rby.png" alt="Logo" />  
+</a>  
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+  <form action="search.html" method="get" class="header-search-form">
+    <input type="search" name="q" placeholder="Search something..."
+           class="input-control input-control-sm search-input" style="width: 90%; margin: 10px;">
+  </form>
+</li>
+                <li class="nav-item"><a href="topics/all_post/index.html">All Posts</a></li>
+                <li class="nav-item"><a href="#">Life Lessons</a></li>
+                <li class="nav-item"><a href="topics/book_review/index.html">Book Reviews</a></li>
+                <li class="nav-item">
+                    <a href="#">Anime <ion-icon name="chevron-down-outline" class="nav-icon"></ion-icon></a>
+                    <ul class="dropdown">
+                        <li><a href="topics/anime/one_piece/index.html">One Piece</a></li>
+                        <li><a href="topics/anime/chainsaw_man/index.html">Chainsaw Man</a></li>
+                        <li><a href="topics/anime/solo_leveling/index.html">Solo Leveling</a></li>
+                        <li><a href="topics/anime/jujutsu_kaisen/index.html">Jujutsu Kaisen</a></li>
+                    </ul>
+                </li>
+               
+        </nav>
+    </header>
+
+    <div class="default-page-container">
+        <h2>Search Results for "<span id="search-term"></span>"</h2>
+        
+        <div id="search-results">
+            <!-- Results will be inserted here -->
+        </div>
+        
+        <div class="pagination">
+            <button id="prev-page" class="btn primary-btn" disabled>Previous</button>
+            <span id="page-info">Page 1 of 1</span>
+            <button id="next-page" class="btn primary-btn" disabled>Next</button>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <!-- Your footer content remains the same -->
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        // Get search query
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q')?.toLowerCase() || "";
+        document.getElementById("search-term").textContent = query;
+
+        // Sample posts data
+        const posts = [
+            {
+                title: "Animal Farm: The Ultimate Dilemma",
+                image: "assets/images/featured_image/animal-farm.png",
+                topic: "Book Review",
+                time: "3 min",
+                preview: "In George Orwell's Animal Farm, the animals successfully carry out a revolution...",
+                url: "post/post-animal-farm.html"
+            },
+            {
+                title: "READING GOOD BOOKS",
+                image: "assets/images/featured_image/read-good-books.jpg",
+                topic: "Personal Growth",
+                time: "5 min",
+                preview: "If you read half an hour a day, you will read about 1000 books in 50 years...",
+                url: "post/post-good-books.html"
+            },
+            {
+                title: "The Subtle Art Of Not Giving A F*ck by Mark Manson",
+                image: "assets/images/featured_image/the-subtle-art-of-not-giving-a-fuck.png",
+                topic: "Book Review",
+                time: "5 min",
+                preview: "With this quote in mind Manson argues that values such as pleasure...",
+                url: "post/the-subtle-art-of-not-giving-a-fuck.html"
+            },
+            {
+                title: "Bullet Train by Kōtarō Isaka",
+                image: "assets/images/featured_image/bullet-train.png",
+                topic: "Book Review",
+                time: "5 min",
+                preview: "Bullet Train is one of those books you pick up expecting a straightforward thriller...",
+                url: "post/bullet-train-review.html"
+            },
+            {
+                title: "Shutter Island by Dennis Lehane",
+                image: "assets/images/featured_image/shutter-island.png",
+                topic: "Book Review",
+                time: "5 min",
+                preview: "Dennis Lehane's Shutter Island isn't just a psychological thriller...",
+                url: "post/shutter-island.html"
+            },
+            {
+                title: "The Wolf of Wall Street by Jordan Belfort",
+                image: "assets/images/featured_image/wolf-of-wall-street.png",
+                topic: "Book Review",
+                time: "5 min",
+                preview: "Jordan Belfort's The Wolf of Wall Street reads like a fever dream of excess...",
+                url: "post/wolf-of-wall-street.html"
+            },
+            {
+                title: "Drive by James Sallis",
+                image: "assets/images/featured_image/drive.jpeg",
+                topic: "Book Review",
+                time: "5 min",
+                preview: "There are books that shout, and then there are books like Drive...",
+                url: "post/drive-review.html"
+            }
+        ];
+
+        // Pagination variables
+        let currentPage = 1;
+        const postsPerPage = 3;
+        let filteredPosts = [];
+
+        // Filter posts based on search query
+        function filterPosts() {
+            filteredPosts = query 
+                ? posts.filter(post => 
+                    post.title.toLowerCase().includes(query) || 
+                    post.topic.toLowerCase().includes(query) ||
+                    post.preview.toLowerCase().includes(query))
+                : posts;
+        }
+
+        // Display posts for current page
+        function displayPosts() {
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+            
+            const resultsContainer = document.getElementById("search-results");
+            
+            if (filteredPosts.length === 0) {
+                resultsContainer.innerHTML = '<div class="no-results">No results found for "' + query + '"</div>';
+            } else {
+                resultsContainer.innerHTML = paginatedPosts.map(post => `
+                    <article class="post-card flat-card">
+                        <div class="image-wrapper bg-image" style="background-image: url('${post.image}')"></div>
+                        <div class="post-info">
+                            <div class="topic-wrapper">
+                                <a href="topics/book_review/index.html" class="td-none topic-tag">${post.topic}</a>
+                                <span class="gray-1">${post.time}</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="${post.url}" class="td-none">${post.title}</a>
+                            </h3>
+                            <div class="post-preview">
+                                <p>${post.preview}</p>
+                            </div>
+                            <div class="author-info">
+                                <div class="author">
+                                    <img src="assets/images/avatar/avatar.jpg" alt="" class="avatar">
+                                    <a href="author.html" class="gray-1 link">Berserk</a>
+                                </div>
+                                <a href="${post.url}" class="read-more">Read More
+                                    <ion-icon name="arrow-forward-outline" class="read-more-icon"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            }
+            
+            updatePaginationControls();
+        }
+
+        // Update pagination controls
+        function updatePaginationControls() {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            const pageInfo = document.getElementById("page-info");
+            const prevButton = document.getElementById("prev-page");
+            const nextButton = document.getElementById("next-page");
+            
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+            
+            // Hide pagination if no results or single page
+            document.querySelector('.pagination').style.display = 
+                (filteredPosts.length <= postsPerPage) ? 'none' : 'flex';
+        }
+
+        // Event listeners for pagination
+        document.getElementById("prev-page").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPosts();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        });
+
+        document.getElementById("next-page").addEventListener("click", () => {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPosts();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        });
+
+        // Initialize
+        filterPosts();
+        displayPosts();
+
+        // Mobile menu functionality
+        const menuIcon = document.querySelector('.menu-icon');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuIcon.addEventListener('click', function () {
+            navOverlay.classList.toggle('open');
+            navMenu.classList.toggle('open');
+        });
+
+        navOverlay.addEventListener('click', function () {
+            navOverlay.classList.remove('open');
+            navMenu.classList.remove('open');
+        });
+        // Dropdown functionality - SIMPLE VERSION
+document.querySelectorAll('.nav-item').forEach(item => {
+    const dropdown = item.querySelector('.dropdown');
+    if (dropdown) {
+        item.addEventListener('click', (e) => {
+            // Only toggle if clicking the parent link, not dropdown links
+            if (e.target.closest('a') === item.querySelector('a:first-child')) {
+                item.classList.toggle('active');
+                e.preventDefault(); // Prevent link navigation
+            }
+        });
+    }
+});
+  // Optional: Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-item')) {
+        document.querySelectorAll('.nav-item.active').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+});
+    </script>
+    
+    
+</body>
+</html>
